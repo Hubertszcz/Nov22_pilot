@@ -4,12 +4,16 @@ description: |
   Nov22_pilot
 output_dir: "docs"
 navbar:
+  logo:
+    image: media/logo.png
+    href: index.html
+  source_url: true
   title: ""
   left:
-#   - text: "Home"
+  right:
+  # - text: "Home"
     - icon: fa-home
       href: index.html
-  right:
     - text: "Soil invertebrates"
       href: soil_inverts.html
     - text: "Camera Trapping"
