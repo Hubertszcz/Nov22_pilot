@@ -1,0 +1,10 @@
+---
+title: "Camera Trapping for large mammals"
+description: |
+  Random Encounter Model (REM) camera trapping for large mammals at Eco Venao and Soberania
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+

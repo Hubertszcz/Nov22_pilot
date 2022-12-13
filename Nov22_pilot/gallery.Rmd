@@ -1,0 +1,10 @@
+---
+title: "Gallery"
+description: |
+  Photos and maps of Panama fieldwork
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+

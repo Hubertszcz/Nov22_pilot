@@ -1,0 +1,37 @@
+{
+  "articles": [
+    {
+      "path": "camera_traps.html",
+      "title": "Camera Trapping for large mammals",
+      "description": "Random Encounter Model (REM) camera trapping for large mammals at Eco Venao and Soberania",
+      "author": [],
+      "contents": "\r\n\r\n\r\n\r\n",
+      "last_modified": "2022-12-12T17:09:55-10:00"
+    },
+    {
+      "path": "gallery.html",
+      "title": "Gallery",
+      "description": "Photos and maps of Panama fieldwork",
+      "author": [],
+      "contents": "\r\n\r\n\r\n\r\n",
+      "last_modified": "2022-12-12T17:09:56-10:00"
+    },
+    {
+      "path": "index.html",
+      "title": "Biodiversity Monitoring Pilot Project",
+      "description": "Pilot biodiversity monitoring data from Earthshot Azuero project, November 2022\n",
+      "author": [],
+      "contents": "\r\n\r\n\r\n\r\n",
+      "last_modified": "2022-12-12T17:09:57-10:00"
+    },
+    {
+      "path": "soil_inverts.html",
+      "title": "Soil invertebrates",
+      "description": "Land use effects on soil meso- and macro-fauna communities",
+      "author": [],
+      "contents": "\r\n\r\n\r\n\r\n",
+      "last_modified": "2022-12-12T17:09:58-10:00"
+    }
+  ],
+  "collections": []
+}
