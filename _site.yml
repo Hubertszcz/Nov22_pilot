@@ -2,7 +2,7 @@ name: "Biodiversity Monitoring Pilot Project"
 title: "Biodiversity Monitoring Pilot Project"
 description: |
   Nov22_pilot
-output_dir: "_site"
+output_dir: "docs"
 navbar:
   title: ""
   left:
