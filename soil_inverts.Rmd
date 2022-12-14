@@ -4,7 +4,104 @@ description: |
   Land use effects on soil meso- and macro-fauna communities
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
+Here is a .csv file with raw data for the invert pilot study:
+
+```{r echo=FALSE}
+xfun::embed_file('nov22_soil.csv')
+```  
+
+<p>&nbsp;</p>
+
+First I clean up the data and prepare it for analysis, then calculate diversity indexes. 
+
+<details markdown="1">
+<summary><strong>Click here</strong> for setup information.</summary>
+
+```{r setup, message=FALSE, results = 'hide'}
+setwd("C:/Users/Hubert/Desktop/Earthshot/Nov 2022 markdown/Nov22_pilot")
+
+data <- read.csv("nov22_soil.csv")
+
+#load packages
+library(vegan)
+library(ggplot2)
+library("dplyr")
+library(tidyr)
+library('funrar')
+
+## Initial cleanup, organization
+
+#make dates recognizable by R
+data$date<-as.Date(data$date, tryFormats = c("%Y-%m-%d", "%Y/%m/%d"))
+                   
+
+#remove missing count values
+data<-data[which(complete.cases(data$count)),]
+
+#create dataset with unknowns (for total abundance)
+data.unknown<-data
+
+#create dataset without unknowns (for diversity and community composition)
+data <- subset(data, !taxon == "Unknown",)
+
+#make my data wide for vegan package
+wide.data <- data %>%
+  spread(key=taxon,
+         value=count)
+
+#make same wide dataframes for data with unknowns
+wide.data.unknown <- data.unknown %>%
+  spread(key=taxon,
+         value=count)
+
+#Splitting data frame into count and environmental data
+wide.data2<-wide.data[,-c(1:12)]     
+wide.data3<-wide.data[,-c(13:65)]
+wide.data.unknown2<-wide.data.unknown[,-c(1:12)]
+wide.data.unknown3<-wide.data.unknown[,-c(13:66)]
+
+### during the real sampling we'll collect soil moisture values so that we can mass correct count data to dry mass. For now I'm pretending it's all 40% 
+
+#converting to count/1000g
+wide.data2 <- (1000/wide.data3$calc.dry.mass)*wide.data2
+wide.data.unknown2 <- (1000/wide.data.unknown3$calc.dry.mass)*wide.data.unknown2
+
+#Next I convert mass-corrected absolute abundance to relative abundance, which is used later for total abundance, individual taxon abundance, and community structure modelling. 
+#Before the conversion I create data frames backing up the mass-corrected absolute count data for diversity index calculations. 
+
+#Creating versions of the count data that are corrected for mass, but not made relative (for diversity indexes)
+wide.data.absolute <- wide.data2
+wide.data.unknown.absolute <- wide.data.unknown2
+
+#reincorporating, and duplicating mass-corrected absolute count data (only doing it for unknowns because this data frame will be used for abundance)
+wide.data.unknown[,c(13:66)] <- wide.data.unknown.absolute
+wide.data.unknown.absolute2 <- wide.data.unknown
+
+#converting absolute to relative abundance
+wide.data2 <- as.matrix(wide.data2)
+wide.data.unknown2 <- as.matrix(wide.data.unknown2)
+wide.data2 <- make_relative(wide.data2)
+wide.data.unknown2 <- make_relative(wide.data.unknown2)
+wide.data2 <- as.data.frame(wide.data2)
+wide.data.unknown2 <- as.data.frame(wide.data.unknown2)
+
+#reincorporating mass-corrected relative count data into original data frame
+wide.data[,c(13:65)] <- wide.data2
+wide.data.unknown[,c(13:66)] <- wide.data.unknown2
+
+
+#Finally I use the ['vegan'](https://cran.r-project.org/web/packages/vegan/index.html) package calculate richness, diversity, evenness, and total abundance, and make a summary table of these values.
+
+taxa <- specnumber(wide.data.absolute)                  #Tallying number of taxa
+shannon<-diversity(wide.data.absolute)                  #Shannon diversity index
+simpson<- diversity(wide.data.absolute, "simpson")      #Simpson diversity index
+J<-shannon/log(taxa)                                    #Pielou's evenness
+abundance<-rowSums(wide.data.unknown.absolute)          #total absolute abundance per 1000g (including unknowns)
+
+data.summary<-data.frame(wide.data3,taxa, abundance, J, shannon, simpson)
+
 ```
 
+</details>
+
+We have five different land use types (pasture, silvopasture, secondary forest, "old growth", and teak plantation) and two sampling locations (Eco Venao and Achotines/Vernes Land). If we were to replicate this study we'd want more sampling locations and more replicates per location. As it is each sample from each land use type at each location is a composite of three sub-samples collected 5m apart and homogenized in the field, in an attempt to avoid micro-climate variability. 

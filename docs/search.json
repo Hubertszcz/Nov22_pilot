@@ -6,7 +6,7 @@
       "description": "Random Encounter Model (REM) camera trapping for large mammals at Eco Venao and Soberania",
       "author": [],
       "contents": "\r\n\r\n\r\n\r\n",
-      "last_modified": "2022-12-13T12:12:37-10:00"
+      "last_modified": "2022-12-13T16:26:54-10:00"
     },
     {
       "path": "gallery.html",
@@ -14,7 +14,7 @@
       "description": "Photos and maps of Panama fieldwork",
       "author": [],
       "contents": "\r\n\r\n\r\n\r\n",
-      "last_modified": "2022-12-13T12:12:38-10:00"
+      "last_modified": "2022-12-13T16:26:54-10:00"
     },
     {
       "path": "index.html",
@@ -22,15 +22,15 @@
       "description": "Pilot biodiversity monitoring data from Earthshot Azuero project, November 2022\n",
       "author": [],
       "contents": "\r\n      \r\n        \r\n      \r\n    \r\n  ",
-      "last_modified": "2022-12-13T12:12:39-10:00"
+      "last_modified": "2022-12-13T16:26:55-10:00"
     },
     {
       "path": "soil_inverts.html",
       "title": "Soil invertebrates",
       "description": "Land use effects on soil meso- and macro-fauna communities",
       "author": [],
-      "contents": "\r\n\r\n\r\n\r\n",
-      "last_modified": "2022-12-13T12:12:40-10:00"
+      "contents": "\r\nHere is a .csv file with raw data for the invert pilot study:\r\n\r\nDownload nov22_soil.csv\r\n\r\n\r\n \r\n\r\nFirst I clean up the data and prepare it for analysis, then calculate\r\ndiversity indexes.\r\nClick here for setup information.\r\n\r\n\r\nsetwd(\"C:/Users/Hubert/Desktop/Earthshot/Nov 2022 markdown/Nov22_pilot\")\r\n\r\ndata <- read.csv(\"nov22_soil.csv\")\r\n\r\n#load packages\r\nlibrary(vegan)\r\nlibrary(ggplot2)\r\nlibrary(\"dplyr\")\r\nlibrary(tidyr)\r\nlibrary('funrar')\r\n\r\n## Initial cleanup, organization\r\n\r\n#make dates recognizable by R\r\ndata$date<-as.Date(data$date, tryFormats = c(\"%Y-%m-%d\", \"%Y/%m/%d\"))\r\n                   \r\n\r\n#remove missing count values\r\ndata<-data[which(complete.cases(data$count)),]\r\n\r\n#create dataset with unknowns (for total abundance)\r\ndata.unknown<-data\r\n\r\n#create dataset without unknowns (for diversity and community composition)\r\ndata <- subset(data, !taxon == \"Unknown\",)\r\n\r\n#make my data wide for vegan package\r\nwide.data <- data %>%\r\n  spread(key=taxon,\r\n         value=count)\r\n\r\n#make same wide dataframes for data with unknowns\r\nwide.data.unknown <- data.unknown %>%\r\n  spread(key=taxon,\r\n         value=count)\r\n\r\n#Splitting data frame into count and environmental data\r\nwide.data2<-wide.data[,-c(1:12)]     \r\nwide.data3<-wide.data[,-c(13:65)]\r\nwide.data.unknown2<-wide.data.unknown[,-c(1:12)]\r\nwide.data.unknown3<-wide.data.unknown[,-c(13:66)]\r\n\r\n### during the real sampling we'll collect soil moisture values so that we can mass correct count data to dry mass. For now I'm pretending it's all 40% \r\n\r\n#converting to count/1000g\r\nwide.data2 <- (1000/wide.data3$calc.dry.mass)*wide.data2\r\nwide.data.unknown2 <- (1000/wide.data.unknown3$calc.dry.mass)*wide.data.unknown2\r\n\r\n#Next I convert mass-corrected absolute abundance to relative abundance, which is used later for total abundance, individual taxon abundance, and community structure modelling. \r\n#Before the conversion I create data frames backing up the mass-corrected absolute count data for diversity index calculations. \r\n\r\n#Creating versions of the count data that are corrected for mass, but not made relative (for diversity indexes)\r\nwide.data.absolute <- wide.data2\r\nwide.data.unknown.absolute <- wide.data.unknown2\r\n\r\n#reincorporating, and duplicating mass-corrected absolute count data (only doing it for unknowns because this data frame will be used for abundance)\r\nwide.data.unknown[,c(13:66)] <- wide.data.unknown.absolute\r\nwide.data.unknown.absolute2 <- wide.data.unknown\r\n\r\n#converting absolute to relative abundance\r\nwide.data2 <- as.matrix(wide.data2)\r\nwide.data.unknown2 <- as.matrix(wide.data.unknown2)\r\nwide.data2 <- make_relative(wide.data2)\r\nwide.data.unknown2 <- make_relative(wide.data.unknown2)\r\nwide.data2 <- as.data.frame(wide.data2)\r\nwide.data.unknown2 <- as.data.frame(wide.data.unknown2)\r\n\r\n#reincorporating mass-corrected relative count data into original data frame\r\nwide.data[,c(13:65)] <- wide.data2\r\nwide.data.unknown[,c(13:66)] <- wide.data.unknown2\r\n\r\n\r\n#Finally I use the ['vegan'](https://cran.r-project.org/web/packages/vegan/index.html) package calculate richness, diversity, evenness, and total abundance, and make a summary table of these values.\r\n\r\ntaxa <- specnumber(wide.data.absolute)                  #Tallying number of taxa\r\nshannon<-diversity(wide.data.absolute)                  #Shannon diversity index\r\nsimpson<- diversity(wide.data.absolute, \"simpson\")      #Simpson diversity index\r\nJ<-shannon/log(taxa)                                    #Pielou's evenness\r\nabundance<-rowSums(wide.data.unknown.absolute)          #total absolute abundance per 1000g (including unknowns)\r\n\r\ndata.summary<-data.frame(wide.data3,taxa, abundance, J, shannon, simpson)\r\n\r\n\r\nWe have five different land use types (pasture, silvopasture,\r\nsecondary forest, “old growth”, and teak plantation) and two sampling\r\nlocations (Eco Venao and Achotines/Vernes Land). If we were to replicate\r\nthis study we’d want more sampling locations and more replicates per\r\nlocation. As it is each sample from each landuse type at each location\r\nis a composite of three sub-samples collected 5m apart and homogenized\r\nin the field, in an attempt to avoid microclimate variability.\r\n\r\n\r\n\r\n",
+      "last_modified": "2022-12-13T16:27:01-10:00"
     }
   ],
   "collections": []
