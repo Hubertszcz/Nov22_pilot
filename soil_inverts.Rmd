@@ -2,7 +2,13 @@
 title: "Soil invertebrates"
 description: |
   Land use effects on soil meso- and macro-fauna communities
+output:
+    distill::distill_article:
+      toc: true
+      toc_depth: 3
 ---
+
+I tested soil We have five different land use types (pasture, silvopasture, secondary forest, "old growth", and teak plantation) and two sampling locations (Eco Venao and Achotines/Vernes Land). If we were to replicate this study we'd want more sampling locations and more replicates per location. As it is each sample from each land use type at each location is a composite of three sub-samples collected 5m apart and homogenized in the field, in an attempt to avoid micro-climate variability. 
 
 Here is a .csv file with raw data for the invert pilot study:
 
@@ -12,7 +18,7 @@ xfun::embed_file('nov22_soil.csv')
 
 <p>&nbsp;</p>
 
-First I clean up the data and prepare it for analysis, then calculate diversity indexes. 
+First I cleaned up the data and prepared it for analysis, then calculated diversity indexes: 
 
 <details markdown="1">
 <summary><strong>Click here</strong> for setup information.</summary>
@@ -25,8 +31,10 @@ data <- read.csv("nov22_soil.csv")
 #load packages
 library(vegan)
 library(ggplot2)
-library("dplyr")
+#library("dplyr")
 library(tidyr)
+library(viridis)
+library(gridExtra)
 library('funrar')
 
 ## Initial cleanup, organization
@@ -99,9 +107,326 @@ J<-shannon/log(taxa)                                    #Pielou's evenness
 abundance<-rowSums(wide.data.unknown.absolute)          #total absolute abundance per 1000g (including unknowns)
 
 data.summary<-data.frame(wide.data3,taxa, abundance, J, shannon, simpson)
-
 ```
 
 </details>
 
-We have five different land use types (pasture, silvopasture, secondary forest, "old growth", and teak plantation) and two sampling locations (Eco Venao and Achotines/Vernes Land). If we were to replicate this study we'd want more sampling locations and more replicates per location. As it is each sample from each land use type at each location is a composite of three sub-samples collected 5m apart and homogenized in the field, in an attempt to avoid micro-climate variability. 
+<p>&nbsp;</p>
+
+### Total abundance 
+
+```{r, echo=FALSE, message = FALSE, warning = FALSE}
+land.use.order <- c('"old-growth"', 'secondary', 'silvopasture', 'pasture','teak')
+
+##### Abundance
+ggplot(data=data.summary, aes(x=land.use, y=abundance, fill=site)) +
+  geom_bar(stat="identity", position=position_dodge(), aes(x = factor(land.use, level = land.use.order)), width = .5)+
+  #scale_fill_brewer(palette="Paired")+ 
+  labs(title="Total abundance of soil fauna", 
+       x="Land Use Type", y = "Abundance (count/1kg soil")+
+  theme(text=element_text(family="Arial")) + 
+  scale_fill_viridis(discrete=TRUE, option="viridis", begin = .3,end = .75,)+
+  theme_minimal()+ theme(plot.title = element_text(hjust = 0.5))
+```
+
+
+### Taxonomic Richness
+
+```{r, echo=FALSE, message = FALSE, warning = FALSE}
+ggplot(data=data.summary, aes(x=land.use, y=taxa, fill=site)) +
+  geom_bar(stat="identity", position=position_dodge(), width = 0.50, aes(x = factor(land.use, level = land.use.order)))+
+  #scale_fill_brewer(palette="Paired")+ 
+  labs(title="Taxonomic richness of soil fauna", 
+       x="Land Use Type", y = "Ordinal taxonomic richness")+
+  theme(text=element_text(family="Arial")) + 
+  scale_fill_viridis(discrete=TRUE, option="viridis", begin = .3,end = .75,)+
+  theme_minimal()+ theme(plot.title = element_text(hjust = 0.5))
+```
+
+### Shannon Diversity
+
+```{r, echo=FALSE, message = FALSE, warning = FALSE}
+ggplot(data=data.summary, aes(x=land.use, y=shannon, fill=site)) +
+  geom_bar(stat="identity", position=position_dodge(), width = 0.50, aes(x = factor(land.use, level = land.use.order)))+
+  #scale_fill_brewer(palette="Paired")+ 
+  labs(title="Shannon diversity of soil fauna", 
+       x="Land Use Type", y = "Shannon index")+
+  theme(text=element_text(family="Arial")) + 
+  scale_fill_viridis(discrete=TRUE, option="viridis", begin = .3,end = .75,)+
+  theme_minimal()+ theme(plot.title = element_text(hjust = 0.5))
+```
+
+### Simpson Diversity
+
+```{r, echo=FALSE, message = FALSE, warning = FALSE}
+ggplot(data=data.summary, aes(x=land.use, y=simpson, fill=site)) +
+  geom_bar(stat="identity", position=position_dodge(), width = 0.50, aes(x = factor(land.use, level = land.use.order)))+
+  #scale_fill_brewer(palette="Paired")+ 
+  labs(title="simpson diversity of soil fauna", 
+       x="Land Use Type", y = "Simpson index")+
+  theme(text=element_text(family="Arial")) + 
+  scale_fill_viridis(discrete=TRUE, option="viridis", begin = .3,end = .75,)+
+  theme_minimal()+ theme(plot.title = element_text(hjust = 0.5))
+```
+
+## Responses of abundant taxa
+
+#### Hymenoptera
+```{r, echo=FALSE, message = FALSE, warning = FALSE}
+##### Hymenoptera absolute
+hym.ab <- ggplot(data=wide.data.unknown.absolute2, aes(x=land.use, y=Hymenoptera, fill=site)) +
+  geom_bar(stat="identity", position=position_dodge(), width = 0.50, aes(x = factor(land.use, level = land.use.order)))+
+  #scale_fill_brewer(palette="Paired")+ 
+  labs(title="Hymenoptera absolute", 
+       x="Land Use Type", y = "Abundance (count/1kg soil)")+
+  theme(text=element_text(family="Arial")) + 
+  scale_fill_viridis(discrete=TRUE, option="viridis", begin = .3,end = .75,)+
+  theme_minimal()+ theme(plot.title = element_text(hjust = 0.5)) + theme(legend.position="none") + scale_x_discrete(guide = guide_axis(n.dodge = 2))
+
+
+##### Hymenoptera relative
+hym.rel <- ggplot(data=wide.data.unknown, aes(x=land.use, y=Hymenoptera, fill=site)) +
+  geom_bar(stat="identity", position=position_dodge(), width = 0.50, aes(x = factor(land.use, level = land.use.order)))+
+  #scale_fill_brewer(palette="Paired")+ 
+  labs(title="Hymenoptera relative", 
+       x="Land Use Type", y = "Relative abundance (count/1kg soil)")+
+  theme(text=element_text(family="Arial")) + 
+  scale_fill_viridis(discrete=TRUE, option="viridis", begin = .3,end = .75,)+
+  theme_minimal()+ theme(plot.title = element_text(hjust = 0.5)) + scale_x_discrete(guide = guide_axis(n.dodge = 2))
+
+grid.arrange(hym.ab, hym.rel, ncol=2, widths = c(1.65,2))
+```
+
+#### Coleoptera
+```{r, echo=FALSE, message = FALSE, warning = FALSE}
+##### Coleoptera absolute
+col.ab <- ggplot(data=wide.data.unknown.absolute2, aes(x=land.use, y=Coleoptera, fill=site)) +
+  geom_bar(stat="identity", position=position_dodge(), width = 0.50, aes(x = factor(land.use, level = land.use.order)))+
+  #scale_fill_brewer(palette="Paired")+ 
+  labs(title="Coleoptera absolute", 
+       x="Land Use Type", y = "Abundance (count/1kg soil)")+
+  theme(text=element_text(family="Arial")) + 
+  scale_fill_viridis(discrete=TRUE, option="viridis", begin = .3,end = .75,)+
+  theme_minimal()+ theme(plot.title = element_text(hjust = 0.5)) + theme(legend.position="none") + scale_x_discrete(guide = guide_axis(n.dodge = 2))
+
+##### Coleoptera relative
+col.rel <- ggplot(data=wide.data.unknown, aes(x=land.use, y=Coleoptera, fill=site)) +
+  geom_bar(stat="identity", position=position_dodge(), width = 0.50, aes(x = factor(land.use, level = land.use.order)))+
+  #scale_fill_brewer(palette="Paired")+ 
+  labs(title="Coleoptera relative", 
+       x="Land Use Type", y = "Relative abundance (count/1kg soil)")+
+  theme(text=element_text(family="Arial")) + 
+  scale_fill_viridis(discrete=TRUE, option="viridis", begin = .3,end = .75,)+
+  theme_minimal()+ theme(plot.title = element_text(hjust = 0.5)) + scale_x_discrete(guide = guide_axis(n.dodge = 2))
+
+grid.arrange(col.ab, col.rel, ncol=2, widths = c(1.65,2))
+```
+
+#### Hemiptera
+```{r, echo=FALSE, message = FALSE, warning = FALSE}
+##### Hemiptera absolute
+hem.ab <- ggplot(data=wide.data.unknown.absolute2, aes(x=land.use, y=Hemiptera, fill=site)) +
+  geom_bar(stat="identity", position=position_dodge(), width = 0.50, aes(x = factor(land.use, level = land.use.order)))+
+  #scale_fill_brewer(palette="Paired")+ 
+  labs(title="Hemiptera absolute", 
+       x="Land Use Type", y = "Abundance (count/1kg soil)")+
+  theme(text=element_text(family="Arial")) + 
+  scale_fill_viridis(discrete=TRUE, option="viridis", begin = .3,end = .75,)+
+  theme_minimal()+ theme(plot.title = element_text(hjust = 0.5)) + theme(legend.position="none") + scale_x_discrete(guide = guide_axis(n.dodge = 2))
+
+
+##### Hemiptera relative
+hem.rel <- ggplot(data=wide.data.unknown, aes(x=land.use, y=Hemiptera, fill=site)) +
+  geom_bar(stat="identity", position=position_dodge(), width = 0.50, aes(x = factor(land.use, level = land.use.order)))+
+  #scale_fill_brewer(palette="Paired")+ 
+  labs(title="Hemiptera relative", 
+       x="Land Use Type", y = "Relative abundance (count/1kg soil)")+
+  theme(text=element_text(family="Arial")) + 
+  scale_fill_viridis(discrete=TRUE, option="viridis", begin = .3,end = .75,)+
+  theme_minimal()+ theme(plot.title = element_text(hjust = 0.5)) + scale_x_discrete(guide = guide_axis(n.dodge = 2))
+
+grid.arrange(hem.ab, hem.rel, ncol=2, widths = c(1.65,2))
+```
+
+#### Protura
+```{r, echo=FALSE, message = FALSE, warning = FALSE}
+##### Protura absolute
+pro.ab <- ggplot(data=wide.data.unknown.absolute2, aes(x=land.use, y=Protura, fill=site)) +
+  geom_bar(stat="identity", position=position_dodge(), width = 0.50, aes(x = factor(land.use, level = land.use.order)))+
+  #scale_fill_brewer(palette="Paired")+ 
+  labs(title="Protura absolute", 
+       x="Land Use Type", y = "Abundance (count/1kg soil)")+
+  theme(text=element_text(family="Arial")) + 
+  scale_fill_viridis(discrete=TRUE, option="viridis", begin = .3,end = .75,)+
+  theme_minimal()+ theme(plot.title = element_text(hjust = 0.5)) + theme(legend.position="none") + scale_x_discrete(guide = guide_axis(n.dodge = 2))
+
+##### Protura relative
+pro.rel <- ggplot(data=wide.data.unknown, aes(x=land.use, y=Protura, fill=site)) +
+  geom_bar(stat="identity", position=position_dodge(), width = 0.50, aes(x = factor(land.use, level = land.use.order)))+
+  #scale_fill_brewer(palette="Paired")+ 
+  labs(title="Protura relative", 
+       x="Land Use Type", y = "Relative abundance (count/1kg soil)")+
+  theme(text=element_text(family="Arial")) + 
+  scale_fill_viridis(discrete=TRUE, option="viridis", begin = .3,end = .75,)+
+  theme_minimal()+ theme(plot.title = element_text(hjust = 0.5)) + scale_x_discrete(guide = guide_axis(n.dodge = 2))
+
+grid.arrange(pro.ab, pro.rel, ncol=2, widths = c(1.65,2))
+```
+
+#### Collembola
+```{r, echo=FALSE, message = FALSE, warning = FALSE}
+wide.data.unknown$Collembola <- wide.data.unknown$Entomobryomorpha + wide.data.unknown$Poduromorpha + wide.data.unknown$Symphypleona
+wide.data.unknown.absolute2$Collembola <- wide.data.unknown.absolute2$Entomobryomorpha + wide.data.unknown.absolute2$Poduromorpha + wide.data.unknown.absolute2$Symphypleona
+
+##### Collembola absolute
+coll.ab <- ggplot(data=wide.data.unknown.absolute2, aes(x=land.use, y=Collembola, fill=site)) +
+  geom_bar(stat="identity", position=position_dodge(), width = 0.50, aes(x = factor(land.use, level = land.use.order)))+
+  #scale_fill_brewer(palette="Paired")+ 
+  labs(title="Collembola absolute", 
+       x="Land Use Type", y = "Abundance (count/1kg soil)")+
+  theme(text=element_text(family="Arial")) + 
+  scale_fill_viridis(discrete=TRUE, option="viridis", begin = .3,end = .75,)+
+  theme_minimal()+ theme(plot.title = element_text(hjust = 0.5)) + theme(legend.position="none") + scale_x_discrete(guide = guide_axis(n.dodge = 2))
+
+##### Collembola relative
+coll.rel <- ggplot(data=wide.data.unknown, aes(x=land.use, y=Collembola, fill=site)) +
+  geom_bar(stat="identity", position=position_dodge(), width = 0.50, aes(x = factor(land.use, level = land.use.order)))+
+  #scale_fill_brewer(palette="Paired")+ 
+  labs(title="Collembola relative", 
+       x="Land Use Type", y = "Relative abundance (count/1kg soil)")+
+  theme(text=element_text(family="Arial")) + 
+  scale_fill_viridis(discrete=TRUE, option="viridis", begin = .3,end = .75,)+
+  theme_minimal()+ theme(plot.title = element_text(hjust = 0.5))
+
+grid.arrange(coll.ab, coll.rel, ncol=2, widths = c(1.65,2)) + scale_x_discrete(guide = guide_axis(n.dodge = 2))
+
+```
+
+#### Oribatida
+```{r, echo=FALSE, message = FALSE, warning = FALSE}
+##### Oribatida absolute
+ori.ab <- ggplot(data=wide.data.unknown.absolute2, aes(x=land.use, y=Oribatida, fill=site)) +
+  geom_bar(stat="identity", position=position_dodge(), width = 0.50, aes(x = factor(land.use, level = land.use.order)))+
+  #scale_fill_brewer(palette="Paired")+ 
+  labs(title="Oribatida absolute", 
+       x="Land Use Type", y = "Abundance (count/1kg soil)")+
+  theme(text=element_text(family="Arial")) + 
+  scale_fill_viridis(discrete=TRUE, option="viridis", begin = .3,end = .75,)+
+  theme_minimal()+ theme(plot.title = element_text(hjust = 0.5)) + theme(legend.position="none") + scale_x_discrete(guide = guide_axis(n.dodge = 2))
+
+##### Oribatida relative
+ori.rel <- ggplot(data=wide.data.unknown, aes(x=land.use, y=Oribatida, fill=site)) +
+  geom_bar(stat="identity", position=position_dodge(), width = 0.50, aes(x = factor(land.use, level = land.use.order)))+
+  #scale_fill_brewer(palette="Paired")+ 
+  labs(title="Oribatida relative", 
+       x="Land Use Type", y = "Relative abundance (count/1kg soil)")+
+  theme(text=element_text(family="Arial")) + 
+  scale_fill_viridis(discrete=TRUE, option="viridis", begin = .3,end = .75,)+
+  theme_minimal()+ theme(plot.title = element_text(hjust = 0.5)) + scale_x_discrete(guide = guide_axis(n.dodge = 2))
+
+grid.arrange(ori.ab, ori.rel, ncol=2, widths = c(1.65,2))
+```
+
+#### Other Acari
+```{r, echo=FALSE, message = FALSE, warning = FALSE}
+##### other.acari absolute
+aca.ab <- ggplot(data=wide.data.unknown.absolute2, aes(x=land.use, y=other.acari, fill=site)) +
+  geom_bar(stat="identity", position=position_dodge(), width = 0.50, aes(x = factor(land.use, level = land.use.order)))+
+  #scale_fill_brewer(palette="Paired")+ 
+  labs(title="Other Acari absolute", 
+       x="Land Use Type", y = "Abundance (count/1kg soil)")+
+  theme(text=element_text(family="Arial")) + 
+  scale_fill_viridis(discrete=TRUE, option="viridis", begin = .3,end = .75,)+
+  theme_minimal()+ theme(plot.title = element_text(hjust = 0.5)) + theme(legend.position="none") + scale_x_discrete(guide = guide_axis(n.dodge = 2))
+
+
+##### other.acari relative
+aca.rel <- ggplot(data=wide.data.unknown, aes(x=land.use, y=other.acari, fill=site)) +
+  geom_bar(stat="identity", position=position_dodge(), width = 0.50, aes(x = factor(land.use, level = land.use.order)))+
+  #scale_fill_brewer(palette="Paired")+ 
+  labs(title="other.acari relative", 
+       x="Land Use Type", y = "Relative abundance (count/1kg soil)")+
+  theme(text=element_text(family="Arial")) + 
+  scale_fill_viridis(discrete=TRUE, option="viridis", begin = .3,end = .75,)+
+  theme_minimal()+ theme(plot.title = element_text(hjust = 0.5)) + scale_x_discrete(guide = guide_axis(n.dodge = 2))
+
+grid.arrange(aca.ab, aca.rel, ncol=2, widths = c(1.65,2))
+```
+
+#### Pseudoscorpiones
+```{r, echo=FALSE, message = FALSE, warning = FALSE}
+##### Pseudoscorpiones absolute
+pse.ab <- ggplot(data=wide.data.unknown.absolute2, aes(x=land.use, y=Pseudoscorpiones, fill=site)) +
+  geom_bar(stat="identity", position=position_dodge(), width = 0.50, aes(x = factor(land.use, level = land.use.order)))+
+  #scale_fill_brewer(palette="Paired")+ 
+  labs(title="Pseudoscorpiones absolute", 
+       x="Land Use Type", y = "Abundance (count/1kg soil)")+
+  theme(text=element_text(family="Arial")) + 
+  scale_fill_viridis(discrete=TRUE, option="viridis", begin = .3,end = .75,)+
+  theme_minimal()+ theme(plot.title = element_text(hjust = 0.5)) + theme(legend.position="none") + scale_x_discrete(guide = guide_axis(n.dodge = 2))
+
+
+##### Pseudoscorpiones relative
+pse.rel <- ggplot(data=wide.data.unknown, aes(x=land.use, y=Pseudoscorpiones, fill=site)) +
+  geom_bar(stat="identity", position=position_dodge(), width = 0.50, aes(x = factor(land.use, level = land.use.order)))+
+  #scale_fill_brewer(palette="Paired")+ 
+  labs(title="Pseudoscorpiones relative", 
+       x="Land Use Type", y = "Relative abundance (count/1kg soil)")+
+  theme(text=element_text(family="Arial")) + 
+  scale_fill_viridis(discrete=TRUE, option="viridis", begin = .3,end = .75,)+
+  theme_minimal()+ theme(plot.title = element_text(hjust = 0.5)) + scale_x_discrete(guide = guide_axis(n.dodge = 2))
+
+grid.arrange(pse.ab, pse.rel, ncol=2, widths = c(1.65,2))
+```
+
+#### Diplopoda
+```{r, echo=FALSE, message = FALSE, warning = FALSE}
+##### Diplopoda absolute
+dip.ab <- ggplot(data=wide.data.unknown.absolute2, aes(x=land.use, y=Diplopoda, fill=site)) +
+  geom_bar(stat="identity", position=position_dodge(), width = 0.50, aes(x = factor(land.use, level = land.use.order)))+
+  #scale_fill_brewer(palette="Paired")+ 
+  labs(title="Diplopoda absolute", 
+       x="Land Use Type", y = "Abundance (count/1kg soil)")+
+  theme(text=element_text(family="Arial")) + 
+  scale_fill_viridis(discrete=TRUE, option="viridis", begin = .3,end = .75,)+
+  theme_minimal()+ theme(plot.title = element_text(hjust = 0.5)) + theme(legend.position="none") + scale_x_discrete(guide = guide_axis(n.dodge = 2))
+
+##### Diplopoda relative
+dip.rel <- ggplot(data=wide.data.unknown, aes(x=land.use, y=Diplopoda, fill=site)) +
+  geom_bar(stat="identity", position=position_dodge(), width = 0.50, aes(x = factor(land.use, level = land.use.order)))+
+  #scale_fill_brewer(palette="Paired")+ 
+  labs(title="Diplopoda relative", 
+       x="Land Use Type", y = "Relative abundance (count/1kg soil)")+
+  theme(text=element_text(family="Arial")) + 
+  scale_fill_viridis(discrete=TRUE, option="viridis", begin = .3,end = .75,)+
+  theme_minimal()+ theme(plot.title = element_text(hjust = 0.5)) + scale_x_discrete(guide = guide_axis(n.dodge = 2))
+
+grid.arrange(dip.ab, dip.rel, ncol=2, widths = c(1.65,2))
+```
+
+#### Symphyla
+```{r, echo=FALSE, message = FALSE, warning = FALSE}
+##### Symphyla absolute
+sym.ab <- ggplot(data=wide.data.unknown.absolute2, aes(x=land.use, y=Symphyla, fill=site)) +
+  geom_bar(stat="identity", position=position_dodge(), width = 0.50, aes(x = factor(land.use, level = land.use.order)))+
+  #scale_fill_brewer(palette="Paired")+ 
+  labs(title="Symphyla absolute", 
+       x="Land Use Type", y = "Abundance (count/1kg soil)")+
+  theme(text=element_text(family="Arial")) + 
+  scale_fill_viridis(discrete=TRUE, option="viridis", begin = .3,end = .75,)+
+  theme_minimal()+ theme(plot.title = element_text(hjust = 0.5)) + theme(legend.position="none") + scale_x_discrete(guide = guide_axis(n.dodge = 2))
+
+
+##### Symphyla relative
+sym.rel <- ggplot(data=wide.data.unknown, aes(x=land.use, y=Symphyla, fill=site)) +
+  geom_bar(stat="identity", position=position_dodge(), width = 0.50, aes(x = factor(land.use, level = land.use.order)))+
+  #scale_fill_brewer(palette="Paired")+ 
+  labs(title="Symphyla relative", 
+       x="Land Use Type", y = "Relative abundance (count/1kg soil)")+
+  theme(text=element_text(family="Arial")) + 
+  scale_fill_viridis(discrete=TRUE, option="viridis", begin = .3,end = .75,)+
+  theme_minimal()+ theme(plot.title = element_text(hjust = 0.5)) + scale_x_discrete(guide = guide_axis(n.dodge = 2))
+
+grid.arrange(sym.ab, sym.rel, ncol=2, widths = c(1.65,2))
+
+```
