@@ -8,21 +8,23 @@ description: |
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
+Testing out gallery function, will add more photos and photo labels in a bit...
+
 ```{r, echo=FALSE, message = FALSE, warning = FALSE}
 #install.packages(c("htmlwidgets","shiny","remotes"))
 #remotes::install_github('royfrancis/pixture')
 
 library(pixture)
 
-paths <- c("media/gallery/DSC00407", 
-           "media/gallery/DSC00415",
-           "media/gallery/DSC00073",
-           "media/gallery/DSC01317",
-           "media/gallery/DSC00793",
-           "media/gallery/DSC00824",
-           "media/gallery/DSC00804",
-           "media/gallery/DSC00915",
-           "media/gallery/DSC00614")
+paths <- c("https://raw.githubusercontent.com/Hubertszcz/Nov22_pilot/main/media/gallery/DSC00407.jpg", 
+           "https://raw.githubusercontent.com/Hubertszcz/Nov22_pilot/main/media/gallery/DSC00415.jpg",
+           "https://raw.githubusercontent.com/Hubertszcz/Nov22_pilot/main/media/gallery/DSC00073.jpg",
+           "https://raw.githubusercontent.com/Hubertszcz/Nov22_pilot/main/media/gallery/DSC01317.jpg",
+           "https://raw.githubusercontent.com/Hubertszcz/Nov22_pilot/main/media/gallery/DSC00793.jpg",
+           "https://raw.githubusercontent.com/Hubertszcz/Nov22_pilot/main/media/gallery/DSC00824.jpg",
+           "https://raw.githubusercontent.com/Hubertszcz/Nov22_pilot/main/media/gallery/DSC00804.jpg",
+           "https://raw.githubusercontent.com/Hubertszcz/Nov22_pilot/main/media/gallery/DSC00915.jpg",
+           "https://raw.githubusercontent.com/Hubertszcz/Nov22_pilot/main/media/gallery/DSC00614.jpg")
              
 
 pixgallery(paths)
