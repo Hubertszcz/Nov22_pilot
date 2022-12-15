@@ -24,7 +24,57 @@ paths <- c("https://raw.githubusercontent.com/Hubertszcz/Nov22_pilot/main/media/
            "https://raw.githubusercontent.com/Hubertszcz/Nov22_pilot/main/media/gallery/DSC00824.jpg",
            "https://raw.githubusercontent.com/Hubertszcz/Nov22_pilot/main/media/gallery/DSC00804.jpg",
            "https://raw.githubusercontent.com/Hubertszcz/Nov22_pilot/main/media/gallery/DSC00915.jpg",
-           "https://raw.githubusercontent.com/Hubertszcz/Nov22_pilot/main/media/gallery/DSC00614.jpg")
+           "https://raw.githubusercontent.com/Hubertszcz/Nov22_pilot/main/media/gallery/DSC00614.jpg",
+           
+           "https://raw.githubusercontent.com/Hubertszcz/Nov22_pilot/main/media/gallery/DSC00518.jpg", 
+           "https://raw.githubusercontent.com/Hubertszcz/Nov22_pilot/main/media/gallery/DSC00525.jpg",
+           "https://raw.githubusercontent.com/Hubertszcz/Nov22_pilot/main/media/gallery/20221123_165716.jpg",
+           "https://raw.githubusercontent.com/Hubertszcz/Nov22_pilot/main/media/gallery/20221123_165603.jpg",
+           "https://raw.githubusercontent.com/Hubertszcz/Nov22_pilot/main/media/gallery/20221204_114250.jpg",
+           "https://raw.githubusercontent.com/Hubertszcz/Nov22_pilot/main/media/gallery/DSC01092.jpg",
+           "https://raw.githubusercontent.com/Hubertszcz/Nov22_pilot/main/media/gallery/DSC00483.jpg",
+           "https://raw.githubusercontent.com/Hubertszcz/Nov22_pilot/main/media/gallery/DSC01162.jpg",
+           "https://raw.githubusercontent.com/Hubertszcz/Nov22_pilot/main/media/gallery/DSC00946.jpg",
+           
+           "https://raw.githubusercontent.com/Hubertszcz/Nov22_pilot/main/media/gallery/DSC00968.jpg", 
+           "https://raw.githubusercontent.com/Hubertszcz/Nov22_pilot/main/media/gallery/20221119_100516.jpg",
+           "https://raw.githubusercontent.com/Hubertszcz/Nov22_pilot/main/media/gallery/DSC00415.jpg",
+           "https://raw.githubusercontent.com/Hubertszcz/Nov22_pilot/main/media/gallery/DSC00411.jpg",
+           "https://raw.githubusercontent.com/Hubertszcz/Nov22_pilot/main/media/gallery/DSC00073.jpg",
+           "https://raw.githubusercontent.com/Hubertszcz/Nov22_pilot/main/media/gallery/DSC00025.jpg",
+           "https://raw.githubusercontent.com/Hubertszcz/Nov22_pilot/main/media/gallery/DSC00866.jpg",
+           "https://raw.githubusercontent.com/Hubertszcz/Nov22_pilot/main/media/gallery/DSC00865.jpg",
+           "https://raw.githubusercontent.com/Hubertszcz/Nov22_pilot/main/media/gallery/DSC01259.jpg",
+           
+           "https://raw.githubusercontent.com/Hubertszcz/Nov22_pilot/main/media/gallery/DSC00470.jpg", 
+           "https://raw.githubusercontent.com/Hubertszcz/Nov22_pilot/main/media/gallery/DSC00474.jpg",
+           "https://raw.githubusercontent.com/Hubertszcz/Nov22_pilot/main/media/gallery/DSC00475.jpg",
+           "https://raw.githubusercontent.com/Hubertszcz/Nov22_pilot/main/media/gallery/DSC00486.jpg",
+           "https://raw.githubusercontent.com/Hubertszcz/Nov22_pilot/main/media/gallery/DSC00496.jpg",
+           "https://raw.githubusercontent.com/Hubertszcz/Nov22_pilot/main/media/gallery/DSC00580.jpg",
+           "https://raw.githubusercontent.com/Hubertszcz/Nov22_pilot/main/media/gallery/DSC00880.jpg",
+           "https://raw.githubusercontent.com/Hubertszcz/Nov22_pilot/main/media/gallery/DSC00879.jpg",
+           "https://raw.githubusercontent.com/Hubertszcz/Nov22_pilot/main/media/gallery/20221114_205809.jpg",
+           
+           "https://raw.githubusercontent.com/Hubertszcz/Nov22_pilot/main/media/gallery/20221114_210208.jpg", 
+           "https://raw.githubusercontent.com/Hubertszcz/Nov22_pilot/main/media/gallery/20221203_155118.jpg",
+           "https://raw.githubusercontent.com/Hubertszcz/Nov22_pilot/main/media/gallery/20221205_105935.jpg",
+           "https://raw.githubusercontent.com/Hubertszcz/Nov22_pilot/main/media/gallery/20221205_131126.jpg",
+           "https://raw.githubusercontent.com/Hubertszcz/Nov22_pilot/main/media/gallery/20221205_132213.jpg",
+           "https://raw.githubusercontent.com/Hubertszcz/Nov22_pilot/main/media/gallery/DSC00283.jpg",
+           "https://raw.githubusercontent.com/Hubertszcz/Nov22_pilot/main/media/gallery/DSC00309.jpg",
+           "https://raw.githubusercontent.com/Hubertszcz/Nov22_pilot/main/media/gallery/DSC00097.jpg",
+           "https://raw.githubusercontent.com/Hubertszcz/Nov22_pilot/main/media/gallery/20221125_131803.jpg",
+           
+           "https://raw.githubusercontent.com/Hubertszcz/Nov22_pilot/main/media/gallery/20221125_102522.jpg", 
+           "https://raw.githubusercontent.com/Hubertszcz/Nov22_pilot/main/media/gallery/20221125_151329.jpg",
+           "https://raw.githubusercontent.com/Hubertszcz/Nov22_pilot/main/media/gallery/20221125_151359.jpg",
+           "https://raw.githubusercontent.com/Hubertszcz/Nov22_pilot/main/media/gallery/DSC01002.jpg",
+           "https://raw.githubusercontent.com/Hubertszcz/Nov22_pilot/main/media/gallery/DSC00503.jpg",
+           "https://raw.githubusercontent.com/Hubertszcz/Nov22_pilot/main/media/gallery/20221119_152912.jpg",
+           "https://raw.githubusercontent.com/Hubertszcz/Nov22_pilot/main/media/gallery/DSC00623.jpg",
+           "https://raw.githubusercontent.com/Hubertszcz/Nov22_pilot/main/media/gallery/DSC01397.jpg",
+           "https://raw.githubusercontent.com/Hubertszcz/Nov22_pilot/main/media/gallery/DSC01393.jpg")
              
 
 pixgallery(paths)
