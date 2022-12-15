@@ -8,3 +8,22 @@ description: |
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
+```{r, echo=FALSE, message = FALSE, warning = FALSE}
+#install.packages(c("htmlwidgets","shiny","remotes"))
+#remotes::install_github('royfrancis/pixture')
+
+library(pixture)
+
+paths <- c("media/gallery/DSC00407", 
+           "media/gallery/DSC00415",
+           "media/gallery/DSC00073",
+           "media/gallery/DSC01317",
+           "media/gallery/DSC00793",
+           "media/gallery/DSC00824",
+           "media/gallery/DSC00804",
+           "media/gallery/DSC00915",
+           "media/gallery/DSC00614")
+             
+
+pixgallery(paths)
+```

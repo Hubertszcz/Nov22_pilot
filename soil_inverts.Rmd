@@ -8,7 +8,21 @@ output:
       toc_depth: 3
 ---
 
-I tested soil We have five different land use types (pasture, silvopasture, secondary forest, "old growth", and teak plantation) and two sampling locations (Eco Venao and Achotines/Vernes Land). If we were to replicate this study we'd want more sampling locations and more replicates per location. As it is each sample from each land use type at each location is a composite of three sub-samples collected 5m apart and homogenized in the field, in an attempt to avoid micro-climate variability. 
+I tested soil from have five different land use types ("old growth", secondary forest, silvopasture, pasture, and teak plantation) at two sampling locations (Eco Venao and Achotines/Vernes Land). In March we could replicate this study with more sampling locations and more replicates per location in addition to baseline data for reforestation sites. 
+
+Some points:
+
+- Venao is a bit more inland and a bit higher elevation than Achotines, and I expect it gets more rain.
+- I put "old growth" in quotation marks because I do not believe that these forests are truly oldgrowth. I define old growth forest as a forest where the oldest growing species of tree has reached its natural life expectancy, died of natural causes, and decomposed back into the soil. Achotines has suspiciously no deadwood (another metric we could measure?), and the older sections of Venao are patchy, with a few large fallen trees but fewer than I've seen in 'true' old growth in Soberania. 
+- I only sampled secondary forest at Achotines - about 20 year old natural regenration. 
+- The teak plantation at Venao started as a mixed species planting, so there is a lot more room between the trees and the ground has spikemosses (unlike the bare ground at the dense teak plantation near Achotines).
+- The silvopastoral at Achotines saw recent cow activity, while at Venoa has ongoing horse activity. The pasture at Achotines has already been planted by Pro Eco Azuero, and hasn't had cows in about a year. The pasture at Venao has frequent ongoing cow activity and cow patties really close to subsampling locations.
+- Each sample is a composite of three sub-samples collected 5m apart along a N-S transect and homogenized in the field, in an attempt to avoid micro-climate variability. 
+- I also collected litter samples and extracted invertebrates from those, but did not have time to identify them (litter samples tend to take longer)
+- With more data we will be able to run some ordination analyses and gain an understanding of community structure between land use types.
+
+
+<p>&nbsp;</p>
 
 Here is a .csv file with raw data for the invert pilot study:
 
@@ -113,6 +127,10 @@ data.summary<-data.frame(wide.data3,taxa, abundance, J, shannon, simpson)
 
 <p>&nbsp;</p>
 
+Next I compare the land use types across different biodiversity metrics:
+
+<p>&nbsp;</p>
+
 ### Total abundance 
 
 ```{r, echo=FALSE, message = FALSE, warning = FALSE}
@@ -122,13 +140,12 @@ land.use.order <- c('"old-growth"', 'secondary', 'silvopasture', 'pasture','teak
 ggplot(data=data.summary, aes(x=land.use, y=abundance, fill=site)) +
   geom_bar(stat="identity", position=position_dodge(), aes(x = factor(land.use, level = land.use.order)), width = .5)+
   #scale_fill_brewer(palette="Paired")+ 
-  labs(title="Total abundance of soil fauna", 
-       x="Land Use Type", y = "Abundance (count/1kg soil")+
+  labs(title="Total abundance of soil fauna", x="Land Use Type", y = "Abundance (count/1kg soil)")+
   theme(text=element_text(family="Arial")) + 
   scale_fill_viridis(discrete=TRUE, option="viridis", begin = .3,end = .75,)+
   theme_minimal()+ theme(plot.title = element_text(hjust = 0.5))
 ```
-
+As you can see, "old-growth" forest soil had far, far more organisms in it than the other types. Venao pasture actually has fairly high total abundance, possibly due to nutrient influxes from cow droppings. Abundance data is corrected for mass to give values of density per 1000g dry soil, though I didn't actually measure moisture for the pilot and set a standard 40% across all samples for the calculations. Moisture has a large influence on mass, and can vary considerably (30-50% in the wet season in my experience), so this is a considerable source of error. Still better than using raw abundance data.
 
 ### Taxonomic Richness
 
@@ -142,6 +159,7 @@ ggplot(data=data.summary, aes(x=land.use, y=taxa, fill=site)) +
   scale_fill_viridis(discrete=TRUE, option="viridis", begin = .3,end = .75,)+
   theme_minimal()+ theme(plot.title = element_text(hjust = 0.5))
 ```
+Order-level taxonomic richness shows a very clear progression in line with successional state. Interestingly both intensive (Achotines) and spaced out (Venao) teak had the lowest richness. This is perhaps related to nutrient leaching and soil erosion ([Fernández-Moya et al 2014](https://www.sciencedirect.com/science/article/abs/pii/S0341816214002379), [Amponsah & Meyer 2008](https://www.tandfonline.com/doi/abs/10.1080/00103620009370442), [Boley et al 2009](https://www.sciencedirect.com/science/article/abs/pii/S0378112709001534)). Assessing biodiversity via richness has the caveat that rare species weigh pretty heavily on the metric. If a community has 100 individuals of one taxon but only one individual each for a further 9, then it will have a higher richness than a community composed of 8 similarly abundant taxa.
 
 ### Shannon Diversity
 
@@ -155,6 +173,8 @@ ggplot(data=data.summary, aes(x=land.use, y=shannon, fill=site)) +
   scale_fill_viridis(discrete=TRUE, option="viridis", begin = .3,end = .75,)+
   theme_minimal()+ theme(plot.title = element_text(hjust = 0.5))
 ```
+Now we're starting to look at true diversity indexes that take into account not only richness, but also evenness - the relative proportions of the taxa. Rare taxa don't weigh as heavily on this value as they did for richness. As expected the trends are not as clear. I have not run statistical models to test for significance yet. Teak seems to have the lowest diversity on average, but pasture is not doing as poorly as one would expect. Part of these differences are due to grassland and forest being different systems, with different species compositions, even if similar diversity (which may change with more data). This is why I want to look at community structure as well, though don't think I have enough data from just this pilot study.
+
 
 ### Simpson Diversity
 
@@ -169,9 +189,21 @@ ggplot(data=data.summary, aes(x=land.use, y=simpson, fill=site)) +
   theme_minimal()+ theme(plot.title = element_text(hjust = 0.5))
 ```
 
+In an oversimplification, the Simpson diversity index is even more heavily weighed away from rare taxa than Shannon. Results look similar to Shannon, but again, I didn't run models to test for significance yet (nor would those models be able to say much with how little data I collected).
+
 ## Responses of abundant taxa
 
-#### Hymenoptera
+Now getting down into the weeds a little bit. While I haven't done an ordination analysis showing differences between communities, these figures show how individual taxa respond to land use. All abundance is mass-corrected.I included two graphs for each taxon, one with absolute abundance, and one with relative abundance (showing something akin to evenness). For example, at the Achotines site the greatest absolute abundance of beetles (Coleoptera) occurred in "old-growth" soil, however total abundance was also greater in those soils so beetles were actually more abundant relative to other taxa in pasture soil.
+
+<p>&nbsp;</p>
+
+Of interest:
+
+- Collembola and Oribatida (which are mostly fungivorous) were most abundant in "old-growth" and progressively less abundant in younger succession landscapes. This makes sense as you need more mature forest with decent tree diversity to support mycorrhizal fungus diversity and provide deadwood as substrate for other fungi.  
+- Psudoscorpiones, tiny arachnid predators of soil fauna appear to be very sensitive to land use - they need forest. In my past research I found that they were very sensitive to soil warming. Interestingly protura, which were also very sensitive to warming, are less affected by land use in this pilot.
+
+
+### Hymenoptera
 ```{r, echo=FALSE, message = FALSE, warning = FALSE}
 ##### Hymenoptera absolute
 hym.ab <- ggplot(data=wide.data.unknown.absolute2, aes(x=land.use, y=Hymenoptera, fill=site)) +
@@ -197,7 +229,7 @@ hym.rel <- ggplot(data=wide.data.unknown, aes(x=land.use, y=Hymenoptera, fill=si
 grid.arrange(hym.ab, hym.rel, ncol=2, widths = c(1.65,2))
 ```
 
-#### Coleoptera
+### Coleoptera
 ```{r, echo=FALSE, message = FALSE, warning = FALSE}
 ##### Coleoptera absolute
 col.ab <- ggplot(data=wide.data.unknown.absolute2, aes(x=land.use, y=Coleoptera, fill=site)) +
@@ -222,7 +254,7 @@ col.rel <- ggplot(data=wide.data.unknown, aes(x=land.use, y=Coleoptera, fill=sit
 grid.arrange(col.ab, col.rel, ncol=2, widths = c(1.65,2))
 ```
 
-#### Hemiptera
+### Hemiptera
 ```{r, echo=FALSE, message = FALSE, warning = FALSE}
 ##### Hemiptera absolute
 hem.ab <- ggplot(data=wide.data.unknown.absolute2, aes(x=land.use, y=Hemiptera, fill=site)) +
@@ -248,7 +280,7 @@ hem.rel <- ggplot(data=wide.data.unknown, aes(x=land.use, y=Hemiptera, fill=site
 grid.arrange(hem.ab, hem.rel, ncol=2, widths = c(1.65,2))
 ```
 
-#### Protura
+### Protura
 ```{r, echo=FALSE, message = FALSE, warning = FALSE}
 ##### Protura absolute
 pro.ab <- ggplot(data=wide.data.unknown.absolute2, aes(x=land.use, y=Protura, fill=site)) +
@@ -273,7 +305,7 @@ pro.rel <- ggplot(data=wide.data.unknown, aes(x=land.use, y=Protura, fill=site))
 grid.arrange(pro.ab, pro.rel, ncol=2, widths = c(1.65,2))
 ```
 
-#### Collembola
+### Collembola
 ```{r, echo=FALSE, message = FALSE, warning = FALSE}
 wide.data.unknown$Collembola <- wide.data.unknown$Entomobryomorpha + wide.data.unknown$Poduromorpha + wide.data.unknown$Symphypleona
 wide.data.unknown.absolute2$Collembola <- wide.data.unknown.absolute2$Entomobryomorpha + wide.data.unknown.absolute2$Poduromorpha + wide.data.unknown.absolute2$Symphypleona
@@ -296,13 +328,13 @@ coll.rel <- ggplot(data=wide.data.unknown, aes(x=land.use, y=Collembola, fill=si
        x="Land Use Type", y = "Relative abundance (count/1kg soil)")+
   theme(text=element_text(family="Arial")) + 
   scale_fill_viridis(discrete=TRUE, option="viridis", begin = .3,end = .75,)+
-  theme_minimal()+ theme(plot.title = element_text(hjust = 0.5))
+  theme_minimal()+ theme(plot.title = element_text(hjust = 0.5)) + scale_x_discrete(guide = guide_axis(n.dodge = 2))
 
 grid.arrange(coll.ab, coll.rel, ncol=2, widths = c(1.65,2)) + scale_x_discrete(guide = guide_axis(n.dodge = 2))
 
 ```
 
-#### Oribatida
+### Oribatida
 ```{r, echo=FALSE, message = FALSE, warning = FALSE}
 ##### Oribatida absolute
 ori.ab <- ggplot(data=wide.data.unknown.absolute2, aes(x=land.use, y=Oribatida, fill=site)) +
@@ -327,7 +359,7 @@ ori.rel <- ggplot(data=wide.data.unknown, aes(x=land.use, y=Oribatida, fill=site
 grid.arrange(ori.ab, ori.rel, ncol=2, widths = c(1.65,2))
 ```
 
-#### Other Acari
+### Other Acari
 ```{r, echo=FALSE, message = FALSE, warning = FALSE}
 ##### other.acari absolute
 aca.ab <- ggplot(data=wide.data.unknown.absolute2, aes(x=land.use, y=other.acari, fill=site)) +
@@ -353,7 +385,7 @@ aca.rel <- ggplot(data=wide.data.unknown, aes(x=land.use, y=other.acari, fill=si
 grid.arrange(aca.ab, aca.rel, ncol=2, widths = c(1.65,2))
 ```
 
-#### Pseudoscorpiones
+### Pseudoscorpiones
 ```{r, echo=FALSE, message = FALSE, warning = FALSE}
 ##### Pseudoscorpiones absolute
 pse.ab <- ggplot(data=wide.data.unknown.absolute2, aes(x=land.use, y=Pseudoscorpiones, fill=site)) +
@@ -379,7 +411,7 @@ pse.rel <- ggplot(data=wide.data.unknown, aes(x=land.use, y=Pseudoscorpiones, fi
 grid.arrange(pse.ab, pse.rel, ncol=2, widths = c(1.65,2))
 ```
 
-#### Diplopoda
+### Diplopoda
 ```{r, echo=FALSE, message = FALSE, warning = FALSE}
 ##### Diplopoda absolute
 dip.ab <- ggplot(data=wide.data.unknown.absolute2, aes(x=land.use, y=Diplopoda, fill=site)) +
@@ -404,7 +436,7 @@ dip.rel <- ggplot(data=wide.data.unknown, aes(x=land.use, y=Diplopoda, fill=site
 grid.arrange(dip.ab, dip.rel, ncol=2, widths = c(1.65,2))
 ```
 
-#### Symphyla
+### Symphyla
 ```{r, echo=FALSE, message = FALSE, warning = FALSE}
 ##### Symphyla absolute
 sym.ab <- ggplot(data=wide.data.unknown.absolute2, aes(x=land.use, y=Symphyla, fill=site)) +
