@@ -8,7 +8,11 @@ description: |
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-Testing out gallery function, will add more photos and photo labels in a bit...
+<p>&nbsp;</p>
+
+Testing out the gallery function, will add more photos and photo labels in a bit...
+
+<p>&nbsp;</p>
 
 ```{r, echo=FALSE, message = FALSE, warning = FALSE}
 #install.packages(c("htmlwidgets","shiny","remotes"))
