@@ -90,7 +90,7 @@ Some sights on the Morales plot:
 
 ```{r, echo=FALSE, message = FALSE, warning = FALSE}
 paths <- c("media/gallery/DSC00968.jpg",
-           "media/gallery/DSC00946.jpg",
+           "media/gallery/DSC00866.jpg",
            "media/gallery/DSC00953.jpg",
            "media/gallery/DSC00906.jpg",
            "media/gallery/DSC00946.jpg",
