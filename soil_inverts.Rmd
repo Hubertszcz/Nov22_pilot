@@ -7,6 +7,9 @@ output:
       toc: true
       toc_depth: 3
 ---
+![](media/gallery/Cricket.jpg)
+
+Soil invertebrates are incredibly diverse. To put things in perspective: There are three species of monkeys on the Azuero Peninsula. All three belong to the same order: Primates. Cows, pigs, sheep, and goats are also part of the same single order (Artiodactyla). A single soil sample from a mature forest can contain more than twenty different *orders* of animals. Most soil organisms in Panama are undescribed species - if you look at a sample under the microscope you are likely to be the first human to ever lay eyes on at least a few species. These tiny creature also play a critical role in the carbon cycle, contributing to decomposition of plant material and cycling nutrients in the soil.
 
 I tested soil from have five different land use types ("old growth", secondary forest, silvopasture, pasture, and teak plantation) at two sampling locations (Eco Venao and Achotines/Vernes Land). In March we could replicate this study with more sampling locations and more replicates per location in addition to baseline data for reforestation sites. 
 

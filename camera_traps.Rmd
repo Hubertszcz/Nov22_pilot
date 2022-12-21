@@ -48,7 +48,10 @@ I did not have time to set cameras out on a truly random grid, but to provide a 
 
 ![Map of Pipeline Road with camera points](media/Gamboa Camera Grid.jpg)
 
-While setting the cameras I knew that these would be more fruitful.For one, a couple of the locations were near fruiting palms and figs, which attract many animals. Others fell near animal trails of one kind or another, and there were tracks virtually everywhere.
+While setting the cameras I knew that these would be more fruitful. For one, a couple of the locations were near fruiting palms and figs, which attract many animals. Others fell near animal trails of one kind or another, and there were tracks virtually everywhere.
+
+![Pipeline Road](media/gallery/DSC01259.jpg)
+
 
 When I collected the cameras, after only four nights out, the results were striking. Every camera picked up an abundance of animals. Agoutis were the most abundant, as was expected - they're even common in Gamboa town. Other smaller animals including coati and armadillo were present, though there were a number of larger animals that are targeted buy hunters as well. I was surprised by the number of peccary and deer the camera traps caught so close to the road and near the edge of the forest. The highlight from the traps however was an ocelot, a clear sign of a healthy lowland neotropical forest. 
 
@@ -86,12 +89,12 @@ It turned out that I couldn't drive all the way to the entrance due to a very mu
 Some sights on the Morales plot:
 
 ```{r, echo=FALSE, message = FALSE, warning = FALSE}
-paths <- c("media/Camera traps/DSC00968.jpg",
-           "media/Camera traps/DSC00946.jpg",
-           "media/Camera traps/DSC00953.jpg",
-           "media/Camera traps/DSC00906.jpg",
-           "media/Camera traps/DSC00946.jpg",
-           "media/Camera traps/DSC00915.jpg")
+paths <- c("media/gallery/DSC00968.jpg",
+           "media/gallery/DSC00946.jpg",
+           "media/gallery/DSC00953.jpg",
+           "media/gallery/DSC00906.jpg",
+           "media/gallery/DSC00946.jpg",
+           "media/gallery/DSC00915.jpg")
 
 pixgallery(paths)
 ```
