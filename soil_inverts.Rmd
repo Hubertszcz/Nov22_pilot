@@ -7,21 +7,23 @@ output:
       toc: true
       toc_depth: 3
 ---
+
 ![](media/gallery/Cricket.jpg)
 
 Soil invertebrates are incredibly diverse. To put things in perspective: There are three species of monkeys on the Azuero Peninsula. All three belong to the same order: Primates. Cows, pigs, sheep, and goats are also part of the same single order (Artiodactyla). A single soil sample from a mature forest can contain more than twenty different *orders* of animals. Most soil organisms in Panama are undescribed species - if you look at a sample under the microscope you are likely to be the first human to ever lay eyes on at least a few species. These tiny creature also play a critical role in the carbon cycle, contributing to decomposition of plant material and cycling nutrients in the soil.
 
-I tested soil from have five different land use types ("old growth", secondary forest, silvopasture, pasture, and teak plantation) at two sampling locations (Eco Venao and Achotines/Vernes Land). In March we could replicate this study with more sampling locations and more replicates per location in addition to baseline data for reforestation sites. 
+### The study
+
+I tested soil from have five different land use types ("old growth", secondary forest, silvopasture, pasture, and teak plantation) at two sampling locations (Eco Venao and Achotines/Vernes Land). In March we could replicate this study with more sampling locations and more replicates per location in addition to the baseline data for reforestation sites. A study like this now will help predict the projected biodiversity changes with different planting regimes.
 
 Some points:
 
-- Venao is a bit more inland and a bit higher elevation than Achotines, and I expect it gets more rain.
-- I put "old growth" in quotation marks because I do not believe that these forests are truly oldgrowth. I define old growth forest as a forest where the oldest growing species of tree has reached its natural life expectancy, died of natural causes, and decomposed back into the soil. Achotines has suspiciously no deadwood (another metric we could measure?), and the older sections of Venao are patchy, with a few large fallen trees but fewer than I've seen in 'true' old growth in Soberania. 
-- I only sampled secondary forest at Achotines - about 20 year old natural regenration. 
+- Venao is a bit more inland and a bit higher elevation than Achotines, and I expect it gets more rain. Both sites are lower elevation than the main reforestation plots.
+- I put "old growth" in quotation marks because I do not believe that these forests are truly old-growth. I define old growth forest as a forest where the oldest growing species of tree has reached its natural life expectancy, died of natural causes, and decomposed back into the soil. Achotines has suspiciously no deadwood (another metric we could measure?), and the older sections of Venao are patchy, with a few large fallen trees but fewer than I've seen in 'true' old growth in Soberania. 
+- I only sampled secondary forest at Achotines - about 20 year old natural regeneration. 
 - The teak plantation at Venao started as a mixed species planting, so there is a lot more room between the trees and the ground has spikemosses (unlike the bare ground at the dense teak plantation near Achotines).
-- The silvopastoral at Achotines saw recent cow activity, while at Venoa has ongoing horse activity. The pasture at Achotines has already been planted by Pro Eco Azuero, and hasn't had cows in about a year. The pasture at Venao has frequent ongoing cow activity and cow patties really close to subsampling locations.
-- Each sample is a composite of three sub-samples collected 5m apart along a N-S transect and homogenized in the field, in an attempt to avoid micro-climate variability. 
-- I also collected litter samples and extracted invertebrates from those, but did not have time to identify them (litter samples tend to take longer)
+- The silvopastoral land at Achotines saw recent cow activity, while at Venao it has ongoing horse activity. The pasture at Achotines has already been planted by Pro Eco Azuero, and hasn't had cows in about a year. The pasture at Venao has frequent ongoing cow activity and cow patties really close to subsampling locations.
+- Each sample is a composite of three sub-samples collected 5m apart along a N-S transect and homogenized in the field, in an attempt to limit micro-climate effects.
 - With more data we will be able to run some ordination analyses and gain an understanding of community structure between land use types.
 
 

@@ -21,8 +21,6 @@ knitr::opts_chunk$set(echo = FALSE)
 In November-December 2022 I conducted a pilot study utilizing several biodiversity monitoring tools and identified/mapped possible sampling locations for Earthshot's first biodiversity monitoring campaign at the Azuero Project in Panama, which will occur in March 2022. The primary goal was to get a feel for the landscape and determining the about of time and manpower needed for a full-scale biodiversity inventory. 
 
 <p>&nbsp;</p>
-<p>&nbsp;</p>
-
 Both documents are works in progress:
 
 [general notes](https://docs.google.com/document/d/1V3rigbHnKcCYEYV7ls08hsW7bejyCtcOeUvosJp2wiM/edit)
