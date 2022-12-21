@@ -32,7 +32,8 @@ Can you spot them in the photos?:
 ```{r, echo=FALSE, message = FALSE, warning = FALSE}
 library(pixture)
 
-venao.cams <- c("media/camera.traps/11200013.JPG","media/camera.traps/IMG_0057.JPG")
+venao.cams <- c("media/camera.traps/11200013.JPG",
+                "media/camera.traps/IMG_0057.JPG")
 pixgallery(venao.cams)
 ```
 
@@ -40,7 +41,7 @@ A disappointing result.
 
 Hint on finding the deer: look at the very right edge. Yes, this is the best photo I got of him.
 
-### Gamboa (Pipeline Road)
+### Gamboa (Pipeline Road in Soberania)
 
 To confirm that the camera traps and techniques for affixing them to trees work, I decided to test out the cameras off of Pipeline Road in Soberania National Park, near Gamboa. 
 
