@@ -1,5 +1,5 @@
 ---
-title: "Biodiversity Monitoring Pilot Project"
+title: "Biodiversity Pilot Project"
 description: |
   Pilot biodiversity monitoring data from Earthshot Azuero project, November 2022
 output:
@@ -21,12 +21,13 @@ knitr::opts_chunk$set(echo = FALSE)
 In November-December 2022 I conducted a pilot study utilizing several biodiversity monitoring tools and identified/mapped possible sampling locations for Earthshot's first biodiversity monitoring campaign at the Azuero Project in Panama, which will occur in March 2022. The primary goal was to get a feel for the landscape and determining the amount of time and manpower needed for a full-scale biodiversity inventory. 
 
 <p>&nbsp;</p>
-Both documents are works in progress:
+I found out that:
 
-[general notes](https://docs.google.com/document/d/1V3rigbHnKcCYEYV7ls08hsW7bejyCtcOeUvosJp2wiM/edit)
+- [Camera trapping](https://hubertszcz.github.io/Nov22_pilot/camera_traps.html) in the Azuero peninsula yields sad results, though we can envision what a healthy system looks like.
 
-[Data](https://docs.google.com/spreadsheets/d/1-gPt5eHrvPbJBiBExP70tCB4MVU0g4UBbzZpOgsuZnc/edit#gid=0)
+- Land use plays a huge role in shaping highly diverse [soil invertebrate](https://hubertszcz.github.io/Nov22_pilot/soil_inverts.html) communities.
 
-<p>&nbsp;</p>
+- Open source [hardware and software](https://hubertszcz.github.io/Nov22_pilot/automoth.html) isn't always as simple to put together as one might hope.
+
 
 All code for processing and visualizing data, as well as creating this R markdown website is at the github link at the top right.
